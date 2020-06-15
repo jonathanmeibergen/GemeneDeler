@@ -43,11 +43,13 @@ namespace KleinsteGemeneVeelvoud
         private void ontbindInFactoren(int a)
         {
             int[] factoren = new int[16];
+            int temp = 1;
+
             for (int i = a/2; i > 0; i--)
             {
-                for (int i = 1; i < length; i++)
+                for (int j = 2; j < a/2; j++)
                 {
-
+                    
                 }
             }
         }
