@@ -1,0 +1,20 @@
+﻿<Window x:Class="KleinsteGemeneVeelvoud.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KleinsteGemeneVeelvoud"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel LastChildFill="False" Margin="0,0,0,0">
+        <Grid Height="75" Margin="0" VerticalAlignment="Top" DockPanel.Dock="Top">
+            <Button x:Name="bKAV" Content="kleinste algemene veelvoud" HorizontalAlignment="Left" VerticalAlignment="Top" Width="170" Margin="10,33,0,0" Click="calc_click"/>
+            <Button x:Name="bGAV" Content="grootste algemene veelvoud" HorizontalAlignment="Left" VerticalAlignment="Top" Width="170" Margin="185,33,0,0" Click="calc_click"/>
+            <TextBox x:Name="tbA" HorizontalAlignment="Left" Margin="10,10,0,0" Width="50" TextWrapping="Wrap" Text="a" VerticalAlignment="Top"/>
+            <TextBox x:Name="tbB" HorizontalAlignment="Left" Margin="65,10,0,0" Width="50" TextWrapping="Wrap" Text="b" VerticalAlignment="Top"/>
+        </Grid>
+        <TextBox x:Name="tbLog" Height="250" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Padding="5" Text="" VerticalAlignment="Top" DockPanel.Dock="Bottom" Margin="10,0,10,10" FontSize="14" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" Foreground="#FF00A21E" FontWeight="Bold" TextOptions.TextFormattingMode="Display" />
+
+    </DockPanel>
+
+</Window>
