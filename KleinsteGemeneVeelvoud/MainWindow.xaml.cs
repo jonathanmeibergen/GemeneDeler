@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,14 @@ namespace KleinsteGemeneVeelvoud
     public partial class MainWindow : Window
     {
 
-        string[] digits = new[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", };
+        public int a { get; set;}
+        public int b { get; set; }
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            
+        }
 
         private int GeefKAV(int a, int b)
         {
@@ -29,30 +37,13 @@ namespace KleinsteGemeneVeelvoud
 
             while (kav % b != 0)
             {
-                //logObject(kav);
                 kav += a;
-
                 if (kav > 1000000)// big number stop
                     break;
-
             }
-
             return Convert.ToInt32(kav);
         }
 
-        private void ontbindInFactoren(int a)
-        {
-            int[] factoren = new int[16];
-            int temp = 1;
-
-            for (int i = a/2; i > 0; i--)
-            {
-                for (int j = 2; j < a/2; j++)
-                {
-                    
-                }
-            }
-        }
 
         private int GeefGAV(int a, int b)
         {
@@ -78,67 +69,118 @@ namespace KleinsteGemeneVeelvoud
             for (int i = 1; i <= kleinste / 2; i++)
             {
                 kav = (float)kleinste / (float)i;
-                //logObject(kav);
 
                 if (grootste % kav == 0)
-                {
                     return Convert.ToInt32(kav);
-                }
             }
 
             return 1;
-
         }
 
-        public void logObject(object value)
+        private List<int> ontbindInFactoren(int numerator)
         {
+            List<int> factors = new List<int>();
+            int quotient = numerator, denominator = 2;
+
+            logObject(String.Format("De factoren van {0} zijn:", numerator), true);
+            while (denominator <= quotient)
+            {
+                if (quotient % denominator == 0)
+                {
+                    factors.Add(denominator);
+                    logObject(string.Format(" {0},", denominator), false);
+                    quotient /= denominator;
+                    denominator = 1; // the incrementer in the following statement makes the dominator 2 as it should be
+                }
+                denominator++;
+            }
+            return factors;
+        }
+
+        private int geefGAVontbind(int a, int b)
+        {
+            List<int> la = ontbindInFactoren(a), lb = ontbindInFactoren(b), gav_factoren = new List<int>();
+            int gav = 1;
+
+            
+            foreach (var item in la)
+            {
+                if(lb.Count > 0 && lb.Contains(item))
+                {
+                    gav_factoren.Add(item);
+                    lb.Remove(item);
+                }
+            }
+
+            if (gav_factoren.Count > 0)
+                logObject(String.Format("De overeenkomstige factoren van {0} en {1} zijn:", a, b), true);
+            else
+            {
+                logObject("Er zijn geen overeenkomstige factoren", true);
+                return gav;
+            }
+
+            foreach (int item in gav_factoren)
+            {
+                logObject(String.Format(" {0},", item), false);
+                gav *= item;
+            }
+
+
+
+            return gav;
+        }
+
+        public void logObject(object value, bool newline)
+        {
+            if (newline)
+                tbLog.Text += "\n";
             tbLog.Text += value.ToString();
-            tbLog.Text += "\n";
 
             tbLog.CaretIndex = tbLog.Text.Length;
             tbLog.ScrollToEnd();
         }
 
-        public MainWindow()
+        private int validateInput(object data)
         {
-            InitializeComponent();
-            
+            int number = 0;
+            if (int.TryParse(data.ToString(), out number))
+                number = Convert.ToInt32(data.ToString());
+
+            return number;
         }
 
-        private void calc_click(object sender, RoutedEventArgs e)
+        private void kav_click(object sender, RoutedEventArgs e)
         {
-
-            Button btn = sender as Button;
-            string log;
-            int a, b;
-
-            if (int.TryParse(tbA.Text, out a) && int.TryParse(tbA.Text, out b))
-            {
-                a = Convert.ToInt32(tbA.Text);
-                b = Convert.ToInt32(tbB.Text);
-
-                //int.TryParse(
-
-                if (btn.Name.Equals("bKAV"))
-                {
-                    log = String.Format("Kleinste algemene veelvoud van {0} en {1} is {2}",
+            a = validateInput(tbA.Text);
+            b = validateInput(tbB.Text);
+           
+            logObject(String.Format("Kleinste algemene veelvoud van {0} en {1} is {2}",
                                         a,
                                         b,
-                                        GeefKAV(a, b));
-                }
-                else
-                {
-                    log = String.Format("Grootste algemene veelvoud van {0} en {1} is {2}",
-                                        a,
-                                        b,
-                                        GeefGAV(a, b));
-                }
+                                        GeefKAV(a, b)), true);
+        }
 
-            } else
+        private void gav_click(object sender, RoutedEventArgs e)
+        {
+            a = validateInput(tbA.Text);
+            b = validateInput(tbB.Text);
+            bool ontbind = cbOntbind.IsChecked ?? false;
+
+            if (!ontbind)
             {
-                log = "Input is geen getal";
+                logObject(String.Format("Grootste algemene veelvoud van {0} en {1} is {2}",
+                                            a,
+                                            b,
+                                            GeefGAV(a, b)), true);
             }
-            logObject(log);
+            else
+            {
+                logObject(String.Format("Grootste algemene veelvoud van {0} en {1} is {2}",
+                           a,
+                           b,
+                           geefGAVontbind(a, b)),true);
+            }
         }
     }
 }

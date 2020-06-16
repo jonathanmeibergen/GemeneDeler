@@ -7,11 +7,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <DockPanel LastChildFill="False" Margin="0,0,0,0">
-        <Grid Height="75" Margin="0" VerticalAlignment="Top" DockPanel.Dock="Top">
-            <Button x:Name="bKAV" Content="kleinste algemene veelvoud" HorizontalAlignment="Left" VerticalAlignment="Top" Width="170" Margin="10,33,0,0" Click="calc_click"/>
-            <Button x:Name="bGAV" Content="grootste algemene veelvoud" HorizontalAlignment="Left" VerticalAlignment="Top" Width="170" Margin="185,33,0,0" Click="calc_click"/>
-            <TextBox x:Name="tbA" HorizontalAlignment="Left" Margin="10,10,0,0" Width="50" TextWrapping="Wrap" Text="a" VerticalAlignment="Top"/>
-            <TextBox x:Name="tbB" HorizontalAlignment="Left" Margin="65,10,0,0" Width="50" TextWrapping="Wrap" Text="b" VerticalAlignment="Top"/>
+        <Grid Height="125" Margin="0" VerticalAlignment="Top" DockPanel.Dock="Top">
+            <CheckBox x:Name="cbOntbind" Content="Ontbind in factoren" Margin="185,92,476,14"/>
+            <Button x:Name="bKAV" Content="kleinste algemene veelvoud" HorizontalAlignment="Left" VerticalAlignment="Top" Width="170" Height="32" Margin="10,45,0,0" Click="kav_click"/>
+            <Button x:Name="bGAV" Content="grootste algemene veelvoud" HorizontalAlignment="Left" VerticalAlignment="Top" Width="170" Height="32" Margin="10,83,0,0" Click="gav_click"/>
+            <TextBox x:Name="tbA" HorizontalAlignment="Left" Margin="30,10,0,0" Width="50" TextWrapping="Wrap" Text="1" VerticalAlignment="Top"/>
+            <TextBox x:Name="tbB" HorizontalAlignment="Left" Margin="105,10,0,0" Width="50" TextWrapping="Wrap" Text="1" VerticalAlignment="Top"/>
+            <Label Content="a:" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top"/>
+            <Label Content="b:" HorizontalAlignment="Left" Margin="85,6,0,0" VerticalAlignment="Top"/>
         </Grid>
         <TextBox x:Name="tbLog" Height="250" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Padding="5" Text="" VerticalAlignment="Top" DockPanel.Dock="Bottom" Margin="10,0,10,10" FontSize="14" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" Foreground="#FF00A21E" FontWeight="Bold" TextOptions.TextFormattingMode="Display" />
 
